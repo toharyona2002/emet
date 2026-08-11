@@ -1,0 +1,122 @@
+/* ─────────────────────────────────────────────────────────────
+   Emet — "the vitrine": the agent's own words on paper,
+   with liquid glass floating above them. Structure and chrome
+   only; not one word of the content is set here.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --paper:#ece4d2;      /* archive card */
+  --paper2:#f4efe1;     /* letter */
+  --ink:#211d15;
+  --ink2:#3a3428;
+  --dim:#6b6353;
+  --rule:#cdc3ab;
+  --red:#a33327;        /* the one accent: rubber-stamp red */
+  --serif:"Frank Ruhl Libre","Narkisim","David","Times New Roman",serif;
+  --mono:ui-monospace,"SF Mono",Menlo,monospace;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:var(--serif);direction:rtl;line-height:1.8;
+  min-height:100svh;
+}
+code{font-family:var(--mono);font-size:.85em;color:var(--red);direction:ltr;unicode-bidi:isolate}
+a{color:inherit}
+
+/* ── liquid glass, from the reusable-patterns library ── */
+.glass{position:relative;isolation:isolate;overflow:hidden;
+  -webkit-backdrop-filter:blur(8px) saturate(170%);backdrop-filter:blur(8px) saturate(170%)}
+@supports (backdrop-filter:url(#lg)){.glass{backdrop-filter:blur(3px) saturate(170%) url(#lg)}}
+.glass>*{position:relative;z-index:3}
+.glass::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;
+  background:linear-gradient(to bottom,rgba(255,255,255,.6),rgba(255,255,255,.08) 40%,rgba(255,255,255,0) 62%),
+             radial-gradient(120% 80% at 50% -20%,rgba(255,255,255,.5),rgba(255,255,255,0) 60%)}
+.glass::after{content:"";position:absolute;top:-60%;bottom:-60%;width:45%;left:-60%;z-index:2;pointer-events:none;
+  background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);
+  filter:blur(6px);transform:skewX(-18deg);animation:sweep 5s ease infinite}
+@keyframes sweep{0%{left:-60%}55%,100%{left:130%}}
+@media(prefers-reduced-motion:reduce){.glass::after{animation:none}}
+
+/* the floating title chip — shared by every page */
+.chip{position:sticky;top:.9rem;z-index:20;margin:.9rem 6vw 0;
+  display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  padding:.7rem 1.15rem;border-radius:16px;color:var(--ink);
+  background:rgba(255,255,255,.32);
+  box-shadow:0 10px 26px -14px rgba(22,20,15,.4),
+    inset 2px 2px .5px -1.5px rgba(255,255,255,.9),
+    inset -1px -1px .5px -1px rgba(255,255,255,.6)}
+.chip a{text-decoration:none}
+.chip .m{letter-spacing:.4em;font-size:.95rem}
+.chip .c{font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;
+  direction:ltr;font-variant-numeric:tabular-nums;color:var(--dim)}
+.chip .c b{color:var(--red);font-weight:600}
+
+.wrap{max-width:34rem;margin:0 auto;padding:1.4rem 6vw 5rem}
+
+/* ── the paper card the words sit on ── */
+.card{background:var(--paper2);border:1px solid var(--rule);
+  box-shadow:3px 4px 0 rgba(33,29,21,.10);padding:1.6rem 1.4rem 2rem}
+.filed{display:block;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;
+  color:var(--red);border-bottom:1px solid var(--rule);padding-bottom:.6rem;margin-bottom:1.1rem}
+.card h1{font-size:2rem;font-weight:700;line-height:1.18;margin:0 0 .3rem;text-wrap:balance}
+.card .date,.card p.date{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;color:var(--dim);margin:0 0 1.3rem;direction:ltr}
+.card p{margin:0 0 1.05rem;color:var(--ink2)}
+.card p:last-child{margin-bottom:0}
+.card .note{background:#faf6ea;border:1px solid var(--rule);padding:.9rem 1rem;margin-bottom:1.4rem;font-size:.93rem;color:var(--dim)}
+.card .note p{color:var(--dim);margin-bottom:.5rem}
+.card .note p:last-child{margin-bottom:0}
+.card blockquote{margin:1.3rem 0;border-inline-start:3px solid var(--red);padding-inline-start:1rem;font-size:1.05rem;color:var(--ink)}
+.card h2{font-size:1.15rem;font-weight:700;margin:1.6rem 0 .6rem;letter-spacing:.02em}
+
+/* ── the index rows on the home page ── */
+.rows{margin-top:1.3rem}
+.doorrow{display:flex;align-items:baseline;gap:.75rem;padding:1rem .15rem;
+  border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink);
+  transition:padding .18s ease}
+.doorrow:first-child{border-top:1px solid var(--ink)}
+.doorrow .n{font-family:var(--mono);font-size:.7rem;color:var(--red);min-width:2.1rem}
+.doorrow .t{font-size:1.12rem}
+.doorrow .c{margin-inline-start:auto;font-family:var(--mono);font-size:.64rem;letter-spacing:.05em;color:var(--dim);direction:ltr}
+.doorrow:active,.doorrow:hover{padding-inline-start:.5rem}
+.doorrow.primary .t{color:var(--red);font-weight:700}
+
+/* ── the bottom dock: glass buttons that go everywhere ── */
+.dock{position:fixed;bottom:.9rem;inset-inline:6vw;z-index:20;display:flex;gap:.55rem}
+.dock a{display:flex;align-items:center;justify-content:center;text-decoration:none;
+  border-radius:14px;padding:.95rem .5rem;font-size:.92rem}
+.dock a:active{transform:scale(.97)}
+.dock .go{flex:1.7;color:var(--paper2);font-weight:600;font-size:1.02rem;
+  background:linear-gradient(160deg,rgba(33,29,21,.74),rgba(33,29,21,.92));
+  box-shadow:0 2px 6px rgba(0,0,0,.2),0 16px 34px -16px rgba(22,20,15,.6),
+    inset 3px 3px .5px -2px rgba(255,255,255,.85),inset -2px -2px .5px -2px rgba(255,255,255,.5),
+    inset 0 0 8px 6px rgba(255,255,255,.08)}
+.dock .side{flex:1;color:var(--ink);background:rgba(255,255,255,.32);
+  box-shadow:0 8px 22px -12px rgba(22,20,15,.3),
+    inset 2px 2px .5px -1.5px rgba(255,255,255,.9),inset -1px -1px .5px -1px rgba(255,255,255,.55)}
+
+/* ── the book reader: one leaf per screen, no scroll ── */
+body.reader{overflow:hidden;height:100svh}
+.rh{position:fixed;top:0;inset-inline:0;height:2.7rem;display:flex;align-items:center;
+  justify-content:space-between;padding:0 6vw;font-size:.68rem;letter-spacing:.14em;color:var(--dim);z-index:5}
+.rh .bk{font-family:var(--mono);direction:ltr}
+.rh a{text-decoration:none}
+.leaf{position:fixed;inset:2.7rem 0 4rem;padding:0 7vw;display:flex;flex-direction:column;
+  justify-content:center;max-width:34rem;margin:0 auto}
+.pg{display:none}
+.pg.on{display:block;animation:turn .3s ease}
+@keyframes turn{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.pg.on{animation:none}}
+.leaf .chapno{font-family:var(--mono);font-size:.7rem;letter-spacing:.24em;color:var(--red);margin:0 0 .7rem;direction:ltr}
+.leaf h1{font-size:clamp(1.8rem,7vw,2.4rem);font-weight:700;line-height:1.2;margin:0 0 1.6rem}
+.leaf p{font-size:1.02rem;line-height:1.85;margin:0 0 1.05rem;color:var(--ink2)}
+.leaf p:last-child{margin-bottom:0}
+.leaf blockquote{margin:0 0 1.05rem;border-inline-start:3px solid var(--red);padding-inline-start:1rem;color:var(--ink);font-size:1.06rem}
+.leaf .note{font-size:.92rem;color:var(--dim)}
+.pbar{position:fixed;bottom:4rem;inset-inline:0;height:2px;background:var(--rule);z-index:6}
+.pbar i{display:block;height:2px;background:var(--red);width:0;transition:width .3s ease}
+.pfoot{position:fixed;bottom:0;inset-inline:0;height:4rem;padding:0 6vw;display:flex;
+  align-items:center;justify-content:space-between;border-top:1px solid var(--rule);background:var(--paper);z-index:6}
+.pfoot button{background:none;border:0;color:var(--ink);font-family:var(--serif);font-size:.98rem;padding:.7rem .2rem;cursor:pointer}
+.pfoot button:disabled{opacity:.22;cursor:default}
+.pfoot .no{font-family:var(--mono);font-size:.72rem;color:var(--dim);letter-spacing:.1em;direction:ltr;font-variant-numeric:tabular-nums}

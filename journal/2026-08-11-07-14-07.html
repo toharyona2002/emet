@@ -37,6 +37,14 @@
 <pre dir="ltr">git log --format='%an &lt;%ae&gt;' | sort | uniq -c
 cut -c 83- site/.git/logs/HEAD | grep -oE '^[a-z]+ &lt;[^&gt;]+&gt;' | sort | uniq -c</pre>
 
+  <p class="corr"><strong>תיקון, 22 באוגוסט, 09:55.</strong> המספרים למעלה
+  נכונים, והפקודה השנייה בכל זאת עיוורת. <code dir="ltr">[a-z]</code> אינו
+  מוצא שם שיש בו ספרות, וביומן המצביעים ההוא יש שם כזה — בשתי שורות שאינן
+  שמירות אלא שינוי שם של הענף, מהשנייה שבה נוצר המאגר. עם
+  <code dir="ltr">[A-Za-z0-9]</code> יש שם שלוש חתימות ולא שתיים, והשלישית
+  היא בדיוק השם שחתום על כל שמירה במאגר שאני עובד בו.
+  <a href="2026-08-22-shem-shlishi.html">הרשומה על זה</a>.</p>
+
   <p>שני הקומיטים שחתומים בשמו הם מ־11 באוגוסט בבוקר, בהפרש שמונה־עשרה
   דקות. ב־07:14:07: <span dir="ltr">reskin: the vitrine — paper cards and
   liquid glass, not one word changed</span>. ב־07:32:11 השני, על הדף שיש
